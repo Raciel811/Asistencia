@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ app_name }}</title>
+  <link rel="stylesheet" href="/static/css/style.css?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <main class="app-shell">
+    <!-- ── Header ─────────────────────────────────────────────────────── -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span class="brand-text">Face ID · Biométrico</span>
+      </div>
+      <div id="status-chip" class="status-chip status-chip--pending">
+        <span class="status-dot"></span>
+        <span id="status-text">Verificando ubicación…</span>
+      </div>
+    </header>
+
+    <!-- ── Reloj ──────────────────────────────────────────────────────── -->
+    <section class="clock-card">
+      <div class="clock-label">Sistema de Asistencia</div>
+      <div id="clock" class="clock-time">--:--</div>
+      <div id="clock-date" class="clock-date">-- --- ----</div>
+    </section>
+
+    <!-- ── Logo institucional ─────────────────────────────────────────── -->
+    <section class="logo-card">
+      <img src="/static/img/logo.svg" alt="Logo" id="logo-img" />
+    </section>
+
+    <!-- ── Grid de acciones ───────────────────────────────────────────── -->
+    <section class="actions-grid">
+      {% for tipo in tipos_registro %}
+      <button class="action-btn" data-tipo="{{ tipo }}">
+        <span class="action-icon">{{ loop.cycle('→', '←', '☕', '⏱') }}</span>
+        <span class="action-label">{{ tipo }}</span>
+        <span class="action-sub">
+          {{ loop.cycle('Marcar entrada', 'Marcar salida', 'Salir a almorzar', 'Regresar al trabajo') }}
+        </span>
+      </button>
+      {% endfor %}
+    </section>
+
+    <!-- ── Footer ubicación ──────────────────────────────────────────── -->
+    <footer class="location-bar">
+      <span class="loc-icon">📍</span>
+      <span id="location-text">Obteniendo ubicación…</span>
+    </footer>
+  </main>
+
+  <!-- ── Modal cámara ───────────────────────────────────────────────── -->
+  <div id="camera-modal" class="modal hidden">
+    <div class="camera-frame">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas" class="hidden"></canvas>
+
+      <div class="viewfinder">
+        <div class="oval"></div>
+      </div>
+
+      <div class="modal-top">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span id="capture-caption">Verificación biométrica</span>
+        </div>
+        <div class="modal-title" id="modal-title">Centra tu rostro en el área</div>
+        <div class="modal-sub" id="modal-sub">Mantente quieto · Buena iluminación</div>
+      </div>
+
+      <div class="modal-bottom">
+        <div id="countdown" class="countdown">3</div>
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <div id="progress-caption" class="progress-caption">Capturando en 3 seg…</div>
+        <button id="cancel-btn" class="cancel-btn">✕ Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Overlay de carga ───────────────────────────────────────────── -->
+  <div id="loading-overlay" class="modal hidden">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <div id="loading-message" class="loading-message">Procesando…</div>
+    </div>
+  </div>
+
+  <!-- ── Modal resultado ────────────────────────────────────────────── -->
+  <div id="result-modal" class="modal hidden">
+    <div class="result-card">
+      <div id="result-icon" class="result-icon">✅</div>
+      <div id="result-title" class="result-title">Registro exitoso</div>
+      <div id="result-message" class="result-message">—</div>
+      <button id="result-close" class="primary-btn">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js?v=2"></script>
+</body>
+</html>

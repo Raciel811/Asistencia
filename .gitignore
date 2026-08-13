@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+assets/keys/credentials.json
+data/cache/*
+data/reference_photos/*
+logs/*
+!data/cache/.gitkeep
+!data/reference_photos/.gitkeep
+!logs/.gitkeep
